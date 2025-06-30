@@ -1,0 +1,44 @@
+import struct
+
+import os
+
+
+def ensure_ext(path, ext='.bf'):
+    base, current = os.path.splitext(path)
+    if current.lower() != ext:
+        return base + ext
+    return path
+
+
+
+
+
+class BF_file():
+    MAGIC = b'BF01'
+    HEADER = '>4sI'
+
+    def __init__(self,file_path):
+        self.__file_path = ensure_ext(file_path)
+        self.write_BF("")
+
+
+
+    def write(self,data):
+        payload = data.encode('utf-8')
+        with open(self.__file_path,'wb') as f:
+            f.write(struct.pack(BF_file.HEADER,BF_file.MAGIC,len(payload)))
+            f.write(payload)
+
+    def read(self):
+        with open(self.__file_path,'rb') as f:
+            magic, length = struct.unpack(BF_file.HEADER,f.read(8))
+            if magic != BF_file.MAGIC:
+                raise ValueError("Not a BF file!")
+            payload = f.read(length)
+
+            return payload.decode('utf-8')
+
+    def read_txt_file(self,text_file):
+
+    def get_path(self):
+        return self.__file_path

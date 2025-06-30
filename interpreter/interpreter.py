@@ -1,16 +1,4 @@
 
-import sys
-
-
-
-
-
-
-
-
-
-
-
 
 
 def runner(program):
