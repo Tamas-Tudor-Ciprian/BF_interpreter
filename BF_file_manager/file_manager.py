@@ -38,7 +38,12 @@ class BF_file():
 
             return payload.decode('utf-8')
 
-    def read_txt_file(self,text_file):
+    def txt_to_bf(self,text_file):
+        with open(text_file,'r') as f:
+            data = f.read()
+            filtered_data = "".join(ch for ch in data if ch in "><+-.,[]")
+            self.write(data)
+
 
     def get_path(self):
         return self.__file_path
