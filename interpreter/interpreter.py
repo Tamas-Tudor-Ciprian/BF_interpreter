@@ -31,11 +31,6 @@ def find_matching_parantesys(s,index):
 
 
 
-
-
-
-
-
 class BF_interpreter():
 
     def __init__(self):
@@ -45,11 +40,18 @@ class BF_interpreter():
 
         self.byte_array = [0] * 300000
 
+        self.input_string = ""
+
     def output(self):
         print(bytes(self.byte_array).decode('ascii')[self.data_pointer], end="")
 
     def input(self):
-        self.byte_array[self.data_pointer] = ord(input())
+        if self.input_string == "":
+            self.input_string = input("\n")
+
+        self.byte_array[self.data_pointer] = ord(self.input_string[0])
+        self.input_string = self.input_string[1:]
+
 
     def run_code(self, code):
         print("Running...")
@@ -93,16 +95,19 @@ class BF_interpreter():
         except Exception as err:
             print(f"ERROR:{err}")
 
+
         else:
             print(f"Code executed succesfully! (instruction pointer {self.instruction_pointer} == code length {len(code)}) ")
 
-        input("Press Enter to continue...")
+        finally:
+            input("Press Enter to continue...")
+
 
 
 
 
 def main():
-    print(find_matching_parantesys("[[[.]..]]",8))
+    print(find_matching_parantesys("[[[.]..]]",8)) #this is just for debugging if you need it
 
 
 if __name__ == "__main__":

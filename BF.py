@@ -5,18 +5,26 @@ import sys
 
 
 def main():
-    file_location  = sys.argv[1]
+    interpreter = BF_interpreter()
 
-    file = BF_file(file_location)
+    if len(sys.argv)>1:
 
-    base, current = os.path.splitext(file_location)
+        file_location  = sys.argv[1]
 
-    if current == '.txt':
-        file.txt_to_bf(file_location)
+
+
+        file = BF_file(file_location)
+
+        base, current = os.path.splitext(file_location)
+
+        if current == '.txt':
+            file.txt_to_bf(file_location)
+        else:
+
+
+            interpreter.run_code(file.read())
     else:
-        interpreter = BF_interpreter()
-
-        interpreter.run_code(file.read())
+        interpreter.run_code(input("Input the code you wish to run:"))
 
 if __name__ == "__main__":
     main()
