@@ -3,10 +3,14 @@ import struct
 import os
 
 
-def ensure_ext(path, ext='.bf'):
+BF_EXTENSION = '.bf'
+
+
+
+def ensure_ext(path):
     base, current = os.path.splitext(path)
-    if current.lower() != ext:
-        return base + ext
+    if current.lower() != BF_EXTENSION:
+        return base + BF_EXTENSION
     return path
 
 
@@ -19,9 +23,6 @@ class BF_file():
 
     def __init__(self,file_path):
         self.__file_path = ensure_ext(file_path)
-        self.write_BF("")
-
-
 
     def write(self,data):
         payload = data.encode('utf-8')
@@ -42,7 +43,7 @@ class BF_file():
         with open(text_file,'r') as f:
             data = f.read()
             filtered_data = "".join(ch for ch in data if ch in "><+-.,[]")
-            self.write(data)
+            self.write(filtered_data)
 
 
     def get_path(self):
