@@ -65,7 +65,7 @@ class BF_interpreter():
             self.input_string = self.input_string[1:]
 
         else:
-            " ".
+            pass
 
 
     def run_code(self, code):
