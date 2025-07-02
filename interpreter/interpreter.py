@@ -1,6 +1,6 @@
 
 
-
+import os
 
 def find_matching_parantesys(s,index):
     stack = 1
@@ -40,17 +40,32 @@ class BF_interpreter():
 
         self.byte_array = [0] * 300000
 
+        self.input_mode = ""
+
         self.input_string = ""
+
+        self.input_list = []
 
     def output(self):
         print(bytes(self.byte_array).decode('ascii')[self.data_pointer], end="")
 
     def input(self):
-        if self.input_string == "":
-            self.input_string = input("\n")
 
-        self.byte_array[self.data_pointer] = ord(self.input_string[0])
-        self.input_string = self.input_string[1:]
+        while(self.input_mode != "H" or self.input_mode != "A" ):
+            self.input_mode = input("Input detected! Do you wish to input raw HEX or ASCII for this session? (H/A")
+            if self.input_mode != "H" or self.input_mode != "A":
+                print("Invalid input mode!")
+                os.system("cls")
+
+        if self.input_mode == "A":
+            if self.input_string == "":
+                self.input_string = input("\n")
+
+            self.byte_array[self.data_pointer] = ord(self.input_string[0])
+            self.input_string = self.input_string[1:]
+
+        else:
+            " ".
 
 
     def run_code(self, code):
