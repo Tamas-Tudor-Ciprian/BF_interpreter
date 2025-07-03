@@ -32,18 +32,38 @@ def code_compactor(code):
     return data
 
 
-def code_expander(data):
+def code_expander(data):#not finished
     code = ""
-
-    while data > 0:
-        instruction = data
+    data =bin(data)[2:]
+    for _ in range(3-len(data)//3):
+        data = "0" + data
+    while data != "":
+        print(data)
+        instruction = data[len(data)-3:]
+        if instruction == "000":
+            code = code + ">"
+        elif instruction == "001":
+            code = code + "<"
+        elif instruction == "010":
+            code = code + "+"
+        elif instruction == "011":
+            code = code + "-"
+        elif instruction == "100":
+            code = code + "."
+        elif instruction == "101":
+            code = code + ","
+        elif instruction == "110":
+            code = code + "["
+        elif instruction == "111":
+            code = code + "]"
+        data = data[:len(data)-3]
+    return code
 
 def main():
 
-    data = bin(code_compactor("<<"))
-    print("This be end result:",data)
-    print(data[2:])
-    print(len(data[2:])//3)
+    data = code_compactor("<,<.")
+    print(bin(data))
+    print(code_expander(data))
 
 
 if __name__ == "__main__":
