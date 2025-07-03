@@ -7,6 +7,8 @@ import sys
 def main():
     interpreter = BF_interpreter()
 
+
+
     if len(sys.argv)>1:
 
         file_location  = sys.argv[1]
@@ -17,6 +19,8 @@ def main():
 
         base, current = os.path.splitext(file_location)
 
+
+
         if current == '.txt':
             file.txt_to_bf(file_location)
         else:
@@ -26,5 +30,8 @@ def main():
     else:
         interpreter.run_code(input("Input the code you wish to run:"))
 
+
+
 if __name__ == "__main__":
+
     main()

@@ -51,11 +51,6 @@ class BF_interpreter():
 
     def input(self):
 
-        while(self.input_mode != "H" or self.input_mode != "A" ):
-            self.input_mode = input("Input detected! Do you wish to input raw HEX or ASCII for this session? (H/A")
-            if self.input_mode != "H" or self.input_mode != "A":
-                print("Invalid input mode!")
-                os.system("cls")
 
         if self.input_mode == "A":
             if self.input_string == "":
@@ -65,10 +60,24 @@ class BF_interpreter():
             self.input_string = self.input_string[1:]
 
         else:
-            pass
+            if self.input_list == []:
+                self.input_list = input("\n").split(" ")
+            self.byte_array[self.data_pointer] = int(self.input_list[0], 0)
+            self.input_list = self.input_list[1:]
 
 
     def run_code(self, code):
+
+        if ',' in code:
+            while (self.input_mode != "R" and self.input_mode != "A"):
+                self.input_mode = input(
+                    "\nInput detected! Do you wish to input a raw 4-bit number (of any base) or ASCII for this session? (R/A)")
+                if self.input_mode != "R" and self.input_mode != "A":
+                    input("\nInvalid input mode! Press Enter to try again...")
+                os.system("cls")
+
+
+
         print("Running...")
         print()
 
@@ -115,7 +124,7 @@ class BF_interpreter():
             print(f"Code executed succesfully! (instruction pointer {self.instruction_pointer} == code length {len(code)}) ")
 
         finally:
-            input("Press Enter to continue...")
+            input("\nPress Enter to continue...")
 
 
 
