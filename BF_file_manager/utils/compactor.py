@@ -35,27 +35,30 @@ def code_compactor(code):
 def code_expander(data):#not finished
     code = ""
     data =bin(data)[2:]
-    for _ in range(3-len(data)//3):
+
+    for _ in range(3-len(data)%3):
         data = "0" + data
     while data != "":
         print(data)
         instruction = data[len(data)-3:]
         if instruction == "000":
-            code = code + ">"
+            code = ">" +code
         elif instruction == "001":
-            code = code + "<"
+            code =  "<" + code
         elif instruction == "010":
-            code = code + "+"
+            code = "+" + code
         elif instruction == "011":
-            code = code + "-"
+            code =  "-" + code
         elif instruction == "100":
-            code = code + "."
+            code = "." + code
         elif instruction == "101":
-            code = code + ","
+            code = "," + code
         elif instruction == "110":
-            code = code + "["
+            code = "[" + code
         elif instruction == "111":
-            code = code + "]"
+            code = "]" + code
+        else:
+            raise ValueError("Invalid data input to compactor!")
         data = data[:len(data)-3]
     return code
 
