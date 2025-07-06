@@ -4,6 +4,7 @@
 
 
 def code_compactor(code):
+
     data = 0b000
     for char in code:
 
@@ -29,17 +30,24 @@ def code_compactor(code):
         data = data << 3
 
     data = data >> 3
-    return data
+
+    length = 0
+
+    while data - 2 ** length > 0:
+        length += 2
+    return data.to_bytes(length//8+1, byteorder='big')
 
 
 def code_expander(data):#not finished
     code = ""
     data =bin(data)[2:]
 
-    for _ in range(3-len(data)%3):
-        data = "0" + data
+
+    if len(data)%3 > 0:
+        for _ in range(3-len(data)%3):
+            data = "0" + data
     while data != "":
-        print(data)
+
         instruction = data[len(data)-3:]
         if instruction == "000":
             code = ">" +code
@@ -64,9 +72,9 @@ def code_expander(data):#not finished
 
 def main():
 
-    data = code_compactor("<,<.")
-    print(bin(data))
-    print(code_expander(data))
+    data = code_compactor(",.<,.")
+    print(data)
+    print(code_expander(int.from_bytes(data)))
 
 
 if __name__ == "__main__":

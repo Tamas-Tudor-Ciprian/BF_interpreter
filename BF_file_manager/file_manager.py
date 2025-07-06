@@ -2,10 +2,9 @@ import struct
 
 import os
 
-
 BF_EXTENSION = '.bf'
 
-
+from utils.compactor import *
 
 def ensure_ext(path):
     base, current = os.path.splitext(path)
@@ -25,7 +24,7 @@ class BF_file():
         self.__file_path = ensure_ext(file_path)
 
     def write(self,data):
-        payload = data.encode('utf-8')
+        payload = code_compactor(data)
         with open(self.__file_path,'wb') as f:
             f.write(struct.pack(BF_file.HEADER,BF_file.MAGIC,len(payload)))
             f.write(payload)
@@ -37,7 +36,7 @@ class BF_file():
                 raise ValueError("Not a BF file!")
             payload = f.read(length)
 
-            return payload.decode('utf-8')
+            return code_expander(int.from_bytes(payload))
 
     def txt_to_bf(self,text_file):
         with open(text_file,'r') as f:
